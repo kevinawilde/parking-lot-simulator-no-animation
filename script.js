@@ -38,6 +38,7 @@ function setParkingTime(spot,arr,value){
 }
 let findAndReplace = function(parkingLot,carList){
 	var spot = parkingLot.findIndex(e => e=="_");
+	
 	parkingLot[spot] = carList[0];
 	console.log(`A ${carList[0].year} ${carList[0].make} ${carList[0].model} has parked in space #${spot}`)
 	setParkingTime(spot,parkingLot,parkingLot[spot]);
@@ -67,21 +68,15 @@ function carFactory(numberOfCars) {
 	}
 
 }
-
-function parkingSim(){
-	do{
-		findAndReplace(parkingLot,waitingList);
-		/*for(let i=0; i<number_of_cars; i++){
-			if(parkingLot[i] == '_'){
-				console.log(`A ${waitingList[0].year} ${waitingList[0].make} ${waitingList[0].model} has parked in spot #${i}`);
-				parkingLot[i] = waitingList[0];
-				setParkingTime(i,parkingLot, waitingList[0]);
-				waitingList.shift();
-				continue;
-			}
-		}*/
+function clearInt(interval){
+	if (waitingList.length == 0){
+		clearInterval(interval);
+		return;
 	}
-	while (waitingList.length>0)
+}
+function parkingSim(){
+	var intervals = setInterval(findAndReplace.bind(null,parkingLot, waitingList), 500);
+	clearInt(intervals);
 }
 carFactory(number_of_cars);
 parkingSim();
