@@ -2,7 +2,7 @@ const number_of_cars = 50;
 const number_of_spaces = 10;
 
 let waitingList = [];
-let goneList;
+let goneList = [];
 let parkingLot = new Array(number_of_spaces).fill('_');
 
 
@@ -28,13 +28,29 @@ let randomNumber = function(min, max){
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+function setParkingTime(spot,arr,value){
+	setTimeout(function() {
+		console.log(`The ${value.year} ${value.make} ${value.model} has left the lot`);
+		goneList.push(arr[spot]);
+		arr.splice(spot,1,"_");
 
-function Car(make,model,year,color,id) {
+	},value.timeSpent)
+}
+let findAndReplace = function(parkingLot,carList){
+	var spot = parkingLot.findIndex(e => e=="_");
+	parkingLot[spot] = carList[0];
+	console.log(`A ${carList[0].year} ${carList[0].make} ${carList[0].model} has parked in space #${spot}`)
+	setParkingTime(spot,parkingLot,parkingLot[spot]);
+	carList.shift();
+}; 
+
+function Car(make,model,year,color,id,timeSpent) {
 	this.make = make;
 	this.model = model;
 	this.year = year;
 	this.color = color;
 	this.id = id;
+	this.timeSpent = timeSpent
 }
 function modelListSelector(listName){}
 function carFactory(numberOfCars) {
@@ -45,12 +61,29 @@ function carFactory(numberOfCars) {
 		var models = makeList[Math.floor(Math.random()*(makeList.length - 1) +1)];
 		var year = Math.floor(Math.random()*(2019-2000) +2000);
 		var id = Math.floor(Math.random()*(1000) +1);
-		var car = new Car(make,models,year,color,id);
+		var timer = Math.random()*(5000) +1;
+		var car = new Car(make,models,year,color,id,timer);
 		waitingList.push(car);
 	}
 
 }
 
+function parkingSim(){
+	do{
+		findAndReplace(parkingLot,waitingList);
+		/*for(let i=0; i<number_of_cars; i++){
+			if(parkingLot[i] == '_'){
+				console.log(`A ${waitingList[0].year} ${waitingList[0].make} ${waitingList[0].model} has parked in spot #${i}`);
+				parkingLot[i] = waitingList[0];
+				setParkingTime(i,parkingLot, waitingList[0]);
+				waitingList.shift();
+				continue;
+			}
+		}*/
+	}
+	while (waitingList.length>0)
+}
 carFactory(number_of_cars);
-console.log(waitingList);
+parkingSim();
+
 
