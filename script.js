@@ -1,10 +1,12 @@
-const number_of_cars = 50;
+
+
+const number_of_cars = 15;
 const number_of_spaces = 10;
 
 let waitingList = [];
 let goneList = [];
 let parkingLot = new Array(number_of_spaces).fill('_');
-
+var intervalId;
 
 let makeModelList = [["Honda","Civic","Accord","Fit","CR-V","Pilot","Odyssey","Ridgeline"],
 					["Hyundai","Kona", "Tucson","Santa Fe","Elantra","Sonata","Accent","Veloster"],
@@ -30,19 +32,23 @@ let randomNumber = function(min, max){
 }
 function setParkingTime(spot,arr,value){
 	setTimeout(function() {
-		console.log(`The ${value.year} ${value.make} ${value.model} has left the lot`);
+		console.log(`The ${value.color} ${value.year} ${value.make} ${value.model} has left the lot`);
 		goneList.push(arr[spot]);
 		arr.splice(spot,1,"_");
 
 	},value.timeSpent)
 }
 let findAndReplace = function(parkingLot,carList){
-	var spot = parkingLot.findIndex(e => e=="_");
-	
+    var spot = parkingLot.findIndex(e => e=="_");
+	if(carList[0] ==undefined){
+		console.log('No cars are waiting');
+		clearInt();
+		return;
+	}
 	parkingLot[spot] = carList[0];
-	console.log(`A ${carList[0].year} ${carList[0].make} ${carList[0].model} has parked in space #${spot}`)
+	console.log(`A ${carList[0].color} ${carList[0].year} ${carList[0].make} ${carList[0].model} has parked in space #${spot}`)
 	setParkingTime(spot,parkingLot,parkingLot[spot]);
-	carList.shift();
+    carList.shift();
 }; 
 
 function Car(make,model,year,color,id,timeSpent) {
@@ -68,17 +74,16 @@ function carFactory(numberOfCars) {
 	}
 
 }
-function clearInt(interval){
-	if (waitingList.length == 0){
-		clearInterval(interval);
-		return;
-	}
-}
-function parkingSim(){
-	var intervals = setInterval(findAndReplace.bind(null,parkingLot, waitingList), 500);
-	clearInt(intervals);
-}
+
 carFactory(number_of_cars);
-parkingSim();
+
+let myInterval = setInterval(findAndReplace.bind(null,parkingLot, waitingList), 500);
+
+function clearInt(){
+    
+	clearInterval(myInterval);
+}
+
+
 
 
