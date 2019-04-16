@@ -34,6 +34,9 @@ function setParkingTime(spot,arr,value){
 	setTimeout(function() {
 		console.log(`The ${value.color} ${value.year} ${value.make} ${value.model} has left the lot`);
 		goneList.push(arr[spot]);
+		if (goneList.length == number_of_cars){
+			console.log("Simulation Complete");
+		}
 		arr.splice(spot,1,"_");
 
 	},value.timeSpent)
