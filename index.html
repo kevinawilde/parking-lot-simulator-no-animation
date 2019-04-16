@@ -3,45 +3,51 @@
 <head>
 	<title></title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
 <body>
 	<section class="jumbotron">
 			<h1>Parking Lot Simulation</h1>
 	</section>
-	<div>
-		<div>
-			
+	<div class="row justify-content-around">
+		<div class="card parking" id="spot0">
+			Spot 0
 		</div>
-		<div>
-			
+		<div class="card parking"id="spot1">
+			Spot 1
 		</div>
-		<div>
-			
+		<div class="card parking"id="spot2">
+			Spot 2
 		</div>
-		<div>
-			
+		<div class="card parking"id="spot3">
+			Spot 3
 		</div>
-		<div>
-			
+		<div class="card parking"id="spot4">
+			Spot 4
 		</div>
 		
 	</div>
-	<div>
-		<div>
-			
+	<div class="row justify-content-around">
+		<div class="card parking"id="spot5">
+			Spot 5
 		</div>
-		<div>
-			
+		<div class="card parking"id="spot6">
+			Spot 6
 		</div>
-		<div>
-			
+		<div class="card parking"id="spot7">
+			Spot 7
 		</div>
-		<div>
-			
+		<div class="card parking"id="spot8">
+			Spot 8
 		</div>
-		<div>
-			
-		</div>
+		<div class="card parking"id="spot9">
+			Spot 9
+		</div >
 	</div>
+	<section class="jumbotron">
+			<button class="" type="" onclick="myInterval = setInterval(findAndReplace.bind(null,parkingLot, waitingList), 500);">Start this Up!</button>
+	</section>
 </body>
+<script src="script.js" type="text/javascript" charset="utf-8" async defer></script>
 </html>

@@ -1,6 +1,6 @@
 
 
-const number_of_cars = 15;
+const number_of_cars = 50;
 const number_of_spaces = 10;
 
 let waitingList = [];
@@ -34,6 +34,7 @@ function setParkingTime(spot,arr,value){
 	setTimeout(function() {
 		console.log(`The ${value.color} ${value.year} ${value.make} ${value.model} has left the lot`);
 		goneList.push(arr[spot]);
+		document.getElementById("spot"+spot).style.backgroundColor = "transparent";
 		if (goneList.length == number_of_cars){
 			console.log("Simulation Complete");
 		}
@@ -47,11 +48,13 @@ let findAndReplace = function(parkingLot,carList){
 		console.log('No cars are waiting');
 		clearInt();
 		return;
+	} else{
+		parkingLot[spot] = carList[0];
+		console.log(`A ${carList[0].color} ${carList[0].year} ${carList[0].make} ${carList[0].model} has parked in space #${spot}`);
+		document.getElementById(`spot${spot}`).style.backgroundColor = carList[0].color;
+		setParkingTime(spot,parkingLot,parkingLot[spot]);
+	    carList.shift();
 	}
-	parkingLot[spot] = carList[0];
-	console.log(`A ${carList[0].color} ${carList[0].year} ${carList[0].make} ${carList[0].model} has parked in space #${spot}`)
-	setParkingTime(spot,parkingLot,parkingLot[spot]);
-    carList.shift();
 }; 
 
 function Car(make,model,year,color,id,timeSpent) {
@@ -79,8 +82,8 @@ function carFactory(numberOfCars) {
 }
 
 carFactory(number_of_cars);
-
-let myInterval = setInterval(findAndReplace.bind(null,parkingLot, waitingList), 500);
+let myInterval;
+// let myInterval = setInterval(findAndReplace.bind(null,parkingLot, waitingList), 500);
 
 function clearInt(){
     
