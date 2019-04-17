@@ -35,6 +35,7 @@ function setParkingTime(spot,arr,value){
 		console.log(`The ${value.color} ${value.year} ${value.make} ${value.model} has left the lot`);
 		goneList.push(arr[spot]);
 		document.getElementById("spot"+spot).style.backgroundColor = "transparent";
+		document.getElementById(`spot${spot}`).innerHTML = `Spot ${spot}`;
 		if (goneList.length == number_of_cars){
 			console.log("Simulation Complete");
 		}
@@ -51,6 +52,7 @@ let findAndReplace = function(parkingLot,carList){
 	} else{
 		parkingLot[spot] = carList[0];
 		console.log(`A ${carList[0].color} ${carList[0].year} ${carList[0].make} ${carList[0].model} has parked in space #${spot}`);
+		document.getElementById(`spot${spot}`).innerHTML = `${carList[0].year} ${carList[0].make} ${carList[0].model}`;
 		document.getElementById(`spot${spot}`).style.backgroundColor = carList[0].color;
 		setParkingTime(spot,parkingLot,parkingLot[spot]);
 	    carList.shift();
